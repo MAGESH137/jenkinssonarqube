@@ -20,7 +20,7 @@ pipeline {
             environment {
                 // SonarQube environment variable defined in Jenkins global config
                 SONAR_HOST_URL = credentials('sonar-host-url')
-                SONAR_AUTH_TOKEN = credentials('sonar-auth-token')
+                SONAR_AUTH_TOKEN = credentials('sonarqubeid')
             }
             steps {
                 // Use the SonarScanner Maven plugin
