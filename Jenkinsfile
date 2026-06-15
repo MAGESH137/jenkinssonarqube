@@ -1,51 +1,16 @@
 pipeline {
     agent any
-
-    tools {
-        maven 'Maven 3.9.6'
-        jdk 'OpenJDK 11'
-    }
-
     stages {
-
-        stage('Checkout') {
+        stage('Hello') {
             steps {
-                checkout scm
+                echo 'Hello from Pipeline!'
             }
         }
-
-        stage('Build & Test') {
+        stage('World') {
             steps {
-                sh 'mvn clean verify'
+                echo 'This is stage 2!'
+                sh 'ls -la'
             }
-        }
-
-        stage('SonarQube Scan') {
-            steps {
-
-                withSonarQubeEnv('sonar-host-url') {
-
-                    sh '''
-                    mvn sonar:sonar \
-                    -Dsonar.projectKey=jenkins-sonarqube-sample
-                    '''
-                }
-            }
-        }
-    }
-
-    post {
-
-        always {
-            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-        }
-
-        success {
-            echo 'Build succeeded!'
-        }
-
-        failure {
-            echo 'Build failed.'
         }
     }
 }
